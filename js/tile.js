@@ -1,8 +1,22 @@
 function Tile(x, y) {
   this.shape = Game.shapes[Math.floor(Math.random()*8)];
   this.color = Game.colors[Math.floor(Math.random()*8)];
+
   this.x = x;
   this.y = y;
+  if (this.x < 0) {
+    this.x = -64;
+  }
+  else if (this.x >= 512 + 64) {
+    this.x = 512;
+  }
+  if (this.y < 0) {
+    this.y = -64;
+  }
+  else if (this.y >= 512 + 64) {
+    this.y = 512;
+  }
+
   this.speed = {
     x:0,
     y:0

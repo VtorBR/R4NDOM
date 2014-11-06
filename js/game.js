@@ -31,11 +31,6 @@ Game.init = function() {
 
   Game.canvas.onmousedown = function (e) {
     if (Game.stable) {
-      var gravities = [{x: 0, y: 0.8},
-                       {x: 0, y: -0.8},
-                       {x: -0.8, y: 0},
-                       {x: 0.8, y: 0},];
-      Game.gravity = gravities[Math.floor(Math.random()*4)];
       console.log(Game.gravity);
       var rect = Game.canvas.getBoundingClientRect();
       Game.getTile({
@@ -87,6 +82,8 @@ Game.getTile = function(position) {
         Game.tiles[i].x + 64 > position.x &&
         Game.tiles[i].y + 64 > position.y) {
       console.log(Game.tiles[i]);
+      Game.randomG();
+      Game.tiles.push(new Tile(Game.tiles[i].x + -1024 * Game.gravity.x, Game.tiles[i].y + -1024 * Game.gravity.y));
       Game.tiles.splice(i, 1);
       //delete Game.tiles[i];
     }
@@ -111,6 +108,14 @@ Game.isOpen = function(x, y) {
     }
   }
   return true;
+}
+
+Game.randomG = function() {
+  var gravities = [{x: 0, y: 0.8},
+                   {x: 0, y: -0.8},
+                   {x: -0.8, y: 0},
+                   {x: 0.8, y: 0},];
+  Game.gravity = gravities[Math.floor(Math.random()*4)];
 }
 
 // Start the game
