@@ -31,7 +31,6 @@ Game.init = function() {
 
   Game.canvas.onmousedown = function (e) {
     if (Game.isStable) {
-      console.log(Game.gravity);
       var rect = Game.canvas.getBoundingClientRect();
       Game.getTile({
         x: e.clientX - rect.left,
@@ -74,21 +73,18 @@ Game.draw = function() {
 }
 
 Game.getTile = function(position) {
-  console.log(position);
   for (i=0; i<Game.tiles.length; i++) {
     if (Game.tiles[i] &&
         Game.tiles[i].x < position.x &&
         Game.tiles[i].y < position.y &&
         Game.tiles[i].x + 64 > position.x &&
         Game.tiles[i].y + 64 > position.y) {
-      console.log(Game.tiles[i]);
       Game.randomG();
       Game.tiles.push(new Tile(Game.tiles[i].x + -1024 * Game.gravity.x, Game.tiles[i].y + -1024 * Game.gravity.y));
       Game.tiles.splice(i, 1);
       //delete Game.tiles[i];
     }
   }
-  //console.log(position);
 }
 
 Game.isOpen = function(x, y) {
