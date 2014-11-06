@@ -38,5 +38,84 @@ function Tile(x, y) {
     Game.context.closePath();
     //context.stroke();
     Game.context.fill();
+
+    Game.context.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    Game.context.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+
+
+    if (this.shape < 3) {
+      drawCirc(Game.context, this.x + 32, this.y + 32, 12 + 3*this.shape, this.shape);
+    }
+    else if (this.shape < 10) {
+      drawPolygon(Game.context, this.x + 32, this.y + 32, 24, this.shape, -Math.PI/2, false);
+    }
+    else {
+      drawStar(Game.context, this.x + 32, this.y + 32, 24, this.shape/10);
+    }
   };
 };
+
+function drawPolygon(ctx, x, y, radius, sides, startAngle, anticlockwise) {
+  Game.context.beginPath();
+
+  if (sides < 3) return;
+  var a = (Math.PI * 2)/sides;
+  a = anticlockwise?-a:a;
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(startAngle);
+  ctx.moveTo(radius,0);
+  for (var i = 1; i < sides; i++) {
+    ctx.lineTo(radius*Math.cos(a*i),radius*Math.sin(a*i));
+  }
+  ctx.closePath();
+  ctx.restore();
+
+  Game.context.fill();
+}
+
+function drawStar(ctx, x, y, radius, sides) {
+  Game.context.beginPath();
+  if (sides < 4 || sides % 2 != 0)
+    return;
+  var a = (Math.PI * 2)/sides;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(Math.PI / 2);
+  for (var i = 0; i <= sides; i++) {
+    ctx.lineTo(radius*Math.cos(a*i), radius*Math.sin(a*i));
+    i++;
+    ctx.lineTo(radius*Math.cos(a*i)/3, radius*Math.sin(a*i)/3);
+  }
+  //ctx.closePath();
+  ctx.restore();
+
+  Game.context.fill();
+}
+
+function drawCirc(ctx, x, y, radius, stroke) {
+  Game.context.beginPath();
+  Game.context.lineWidth = 6;
+  var a = (Math.PI * 2);
+  ctx.save();
+  ctx.arc(x, y, radius, 0, Math.PI*2);
+  ctx.restore();
+
+  if (stroke) {
+    Game.context.stroke();
+  }
+  else {
+    Game.context.fill();
+  }
+  Game.context.lineWidth = 1;
+}
+
+function drawBall(ctx, x, y, radius) {
+  Game.context.beginPath();
+  var a = (Math.PI * 2);
+  ctx.save();
+  ctx.arc(x, y, radius, 0, Math.PI*2);
+  ctx.restore();
+
+  Game.context.fill();
+}
