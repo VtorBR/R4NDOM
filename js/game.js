@@ -10,10 +10,11 @@ var Game = {
             'silver',
             'orange'],
   tiles : [],
-  gravity: {
+  gravity : {
     x: 0,
-    y: 0.5
-  }
+    y: 0
+  },
+  stable : true
 };
 
 Game.init = function() {
@@ -29,17 +30,19 @@ Game.init = function() {
   }
 
   Game.canvas.onmousedown = function (e) {
-    var gravities = [{x: 0, y: 0.5},
-                     {x: 0, y: -0.5},
-                     {x: -0.5, y: 0},
-                     {x: 0.5, y: 0},];
-    Game.gravity = gravities[Math.floor(Math.random()*4)];
-    console.log(Game.gravity);
-    var rect = Game.canvas.getBoundingClientRect();
-    Game.getTile({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
+    if (Game.stable) {
+      var gravities = [{x: 0, y: 0.8},
+                       {x: 0, y: -0.8},
+                       {x: -0.8, y: 0},
+                       {x: 0.8, y: 0},];
+      Game.gravity = gravities[Math.floor(Math.random()*4)];
+      console.log(Game.gravity);
+      var rect = Game.canvas.getBoundingClientRect();
+      Game.getTile({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+    }
   }
 
   /*Game.canvas.addEventListener('click', function(evt) {
@@ -61,6 +64,7 @@ Game.run = function() {
 }
 
 Game.update = function() {
+  Game.stable = true;
   Game.tiles.forEach(function(element) {
     element.update();
   });

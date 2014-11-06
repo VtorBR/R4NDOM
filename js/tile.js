@@ -14,8 +14,9 @@ function Tile(x, y) {
 
 
   this.update = function() {
-    if (Game.isOpen(this.x + 32 + this.speed.x + (Game.gravity.x * 64.01),
-                    this.y + 32 + this.speed.y + (Game.gravity.y * 64.01))) {
+    if (Game.isOpen(this.x + 32 + this.speed.x + (Game.gravity.x * 40.01),
+                    this.y + 32 + this.speed.y + (Game.gravity.y * 40.01))) {
+      Game.stable = false;
       this.speed.x += Game.gravity.x;
       this.speed.y += Game.gravity.y;
       this.x += this.speed.x;
