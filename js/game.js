@@ -1,11 +1,18 @@
 var Game = {
   canvas : document.createElement("canvas"),
   shapes : [0, 1, 3, 40, 5, 60, 6, 80],
-  colors : ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'purple', 'orange'],
+  colors : ['red',
+            'green',
+            'blue',
+            'cyan',
+            'magenta',
+            'yellow',
+            'silver',
+            'orange'],
   tiles : [],
   gravity: {
     x: 0,
-    y: 0
+    y: 0.5
   }
 };
 
@@ -22,6 +29,12 @@ Game.init = function() {
   }
 
   Game.canvas.onmousedown = function (e) {
+    var gravities = [{x: 0, y: 0.5},
+                     {x: 0, y: -0.5},
+                     {x: -0.5, y: 0},
+                     {x: 0.5, y: 0},];
+    Game.gravity = gravities[Math.floor(Math.random()*4)];
+    console.log(Game.gravity);
     var rect = Game.canvas.getBoundingClientRect();
     Game.getTile({
       x: e.clientX - rect.left,
@@ -75,6 +88,25 @@ Game.getTile = function(position) {
     }
   }
   //console.log(position);
+}
+
+Game.isOpen = function(x, y) {
+  if (x < 0 ||
+      y < 0 ||
+      x >= Game.canvas.width ||
+      y >= Game.canvas.height) {
+    return false;
+  }
+  for (i=0; i<Game.tiles.length; i++) {
+    if (Game.tiles[i] &&
+        Game.tiles[i].x <= x &&
+        Game.tiles[i].y <= y &&
+        Game.tiles[i].x + 64 > x &&
+        Game.tiles[i].y + 64 > y) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Start the game
