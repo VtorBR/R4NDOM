@@ -14,7 +14,7 @@ var Game = {
     x: 0,
     y: 0
   },
-  stable : false
+  isStable : false
 };
 
 Game.init = function() {
@@ -30,7 +30,7 @@ Game.init = function() {
   }
 
   Game.canvas.onmousedown = function (e) {
-    if (Game.stable) {
+    if (Game.isStable) {
       console.log(Game.gravity);
       var rect = Game.canvas.getBoundingClientRect();
       Game.getTile({
@@ -59,7 +59,7 @@ Game.run = function() {
 }
 
 Game.update = function() {
-  Game.stable = true;
+  Game.isStable = true;
   Game.tiles.forEach(function(element) {
     element.update();
   });
