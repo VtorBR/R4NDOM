@@ -7,13 +7,13 @@ function Tile(x, y) {
   if (this.x < 0) {
     this.x = -64;
   }
-  else if (this.x >= 512 + 64) {
+  else if (this.x > 512 - 64) {
     this.x = 512;
   }
-  if (this.y < 0) {
+  else if (this.y < 0) {
     this.y = -64;
   }
-  else if (this.y >= 512 + 64) {
+  else if (this.y > 512 - 64) {
     this.y = 512;
   }
 
@@ -39,6 +39,10 @@ function Tile(x, y) {
     else {
       this.speed.x = 0;
       this.speed.y = 0;
+      if (Game.stable) {
+        this.x -= ((this.x + 16) % 64) - 16;
+        this.y -= ((this.y + 16) % 64) - 16;
+      }
     }
   }
 

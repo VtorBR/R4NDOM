@@ -14,7 +14,7 @@ var Game = {
     x: 0,
     y: 0
   },
-  stable : true
+  stable : false
 };
 
 Game.init = function() {
