@@ -14,7 +14,8 @@ var Game = {
     x: 0,
     y: 0
   },
-  isStable : false
+  isStable : false,
+  selectSound : new Audio('sound/select.wav')
 };
 
 Game.init = function() {
@@ -38,15 +39,6 @@ Game.init = function() {
       });
     }
   }
-
-  /*Game.canvas.addEventListener('click', function(evt) {
-    var rect = Game.canvas.getBoundingClientRect();
-    var position = {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
-    Game.getTile(position);
-  }, false);*/
 
   Game.run();
 }
@@ -79,6 +71,7 @@ Game.getTile = function(position) {
         Game.tiles[i].y < position.y &&
         Game.tiles[i].x + 64 > position.x &&
         Game.tiles[i].y + 64 > position.y) {
+      Game.selectSound.play();
       Game.randomG();
       Game.tiles.push(new Tile(Game.tiles[i].x + -1024 * Game.gravity.x, Game.tiles[i].y + -1024 * Game.gravity.y));
       Game.tiles.splice(i, 1);

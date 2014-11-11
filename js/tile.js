@@ -65,8 +65,8 @@ function Tile(x, y) {
     //context.stroke();
     Game.context.fill();
 
-    Game.context.fillStyle = Game.context.strokeStyle = 'white';
-    //Game.context.fillStyle = Game.context.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    //Game.context.fillStyle = Game.context.strokeStyle = 'white';
+    Game.context.fillStyle = Game.context.strokeStyle = 'rgba(255, 255, 255, 0.75)';
 
 
     if (this.shape < 3) {
@@ -78,6 +78,32 @@ function Tile(x, y) {
     else {
       drawStar(Game.context, this.x + 32, this.y + 32, 24, this.shape/10);
     }
+
+    Game.context.fillStyle = Game.context.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+
+    Game.context.beginPath();
+
+    Game.context.arc(this.x + 48, this.y + 16, 12, Math.PI*1.5, Math.PI*0);
+    Game.context.arc(this.x + 57, this.y + 16, 3, Math.PI*0, Math.PI);
+    Game.context.arc(this.x + 48, this.y + 16, 6, Math.PI*0, Math.PI*1.5, true);
+    Game.context.arc(this.x + 48, this.y + 7, 3, Math.PI*0.5, Math.PI*1.5);
+
+    Game.context.fill();
+
+    Game.context.fillStyle = Game.context.strokeStyle = 'rgba(0, 0, 0, 0.13)';
+
+    Game.context.beginPath();
+    Game.context.arc(this.x + 16, this.y + 10, 10, Math.PI*1.5, Math.PI, true);
+    Game.context.lineTo(this.x + 6, this.y + 48);
+    Game.context.arc(this.x + 22, this.y + 42, 16, Math.PI, Math.PI*0.5, true);
+    Game.context.lineTo(this.x + 58, this.y + 58);
+    Game.context.arc(this.x + 54, this.y + 48, 10, Math.PI*0.5, Math.PI*0, true);
+
+    Game.context.lineTo(this.x + 64, this.y + 64);
+    Game.context.lineTo(this.x, this.y + 64);
+    Game.context.lineTo(this.x, this.y);
+    Game.context.fill();
+
   };
 };
 
@@ -97,7 +123,7 @@ function drawPolygon(ctx, x, y, radius, sides, startAngle, anticlockwise) {
   ctx.closePath();
   ctx.restore();
 
-  Game.context.fill();
+  ctx.fill();
 }
 
 function drawStar(ctx, x, y, radius, sides) {
@@ -116,7 +142,7 @@ function drawStar(ctx, x, y, radius, sides) {
   //ctx.closePath();
   ctx.restore();
 
-  Game.context.fill();
+  ctx.fill();
 }
 
 function drawCirc(ctx, x, y, radius, stroke) {
@@ -128,12 +154,12 @@ function drawCirc(ctx, x, y, radius, stroke) {
   ctx.restore();
 
   if (stroke) {
-    Game.context.stroke();
+    ctx.stroke();
   }
   else {
-    Game.context.fill();
+    ctx.fill();
   }
-  Game.context.lineWidth = 1;
+  ctx.lineWidth = 1;
 }
 
 function drawBall(ctx, x, y, radius) {
@@ -143,5 +169,5 @@ function drawBall(ctx, x, y, radius) {
   ctx.arc(x, y, radius, 0, Math.PI*2);
   ctx.restore();
 
-  Game.context.fill();
+  ctx.fill();
 }
